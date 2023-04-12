@@ -8,6 +8,7 @@ const loadAllData = async () => {
 
 const displayAllData = (features) => {
   const allData = document.getElementById('all-data-container');
+  allData.innerHTML = "";
   // console.log(features);
   features.forEach(feature => {
     console.log(feature)
@@ -43,14 +44,9 @@ const displayAllData = (features) => {
 loadAllData();
 
 
-
-
-
-
-
-// const loadPhone = async (searchText, dataLimit) => {
-//     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-//     const res = await fetch(url);
-//     const data = await res.json();
-//     displayPhone(data.data, dataLimit);
-// }
+const showAll = async () => {
+  const url = `https://openapi.programming-hero.com/api/ai/tools`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayAllData(data.data.tools);
+}
