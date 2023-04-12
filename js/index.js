@@ -2,13 +2,21 @@ const loadAllData = async () => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(url);
   const data = await res.json();
-  displayAllData(data.data.tools.slice(0, 6));
+  displayAllData(data.data.tools.slice(0, 3));
 }
 
 
 const displayAllData = (features) => {
   const allData = document.getElementById('all-data-container');
   allData.innerHTML = "";
+
+  const showAll = document.getElementById('showAll');
+  if (features.length <= 6) {
+    showAll.classList.remove('hidden');
+  }
+  else {
+    showAll.classList.add('hidden');
+  }
   // console.log(features);
   features.forEach(feature => {
     console.log(feature)
@@ -38,13 +46,25 @@ const displayAllData = (features) => {
         `
     allData.appendChild(div);
   });
+  toggleSpinner(false);
+}
+
+const toggleSpinner = isLoading => {
+  const loaderSection = document.getElementById('loader');
+  if (isLoading) {
+    loaderSection.classList.remove('hidden');
+  }
+  else {
+    loaderSection.classList.add('hidden');
+  }
 }
 
 
-loadAllData();
+// loadAllData();
 
 
 const showAll = async () => {
+  toggleSpinner(true);
   const url = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(url);
   const data = await res.json();

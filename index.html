@@ -15,12 +15,17 @@
     </header>
 
     <main>
+        <section id="loader" class="hidden">
+            <div class="text-center w-full h-56">
+                <progress class="progress w-56"></progress>
+            </div>
+        </section>
         <section id="all-data-container" class="grid grid-cols-1 md:grid-cols-2
         lg:grid-cols-3 gap-6 mx-6">
 
         </section>
         <section class="text-center my-6">
-            <button onclick="showAll()" id="showAll" class="btn btn-primary">See more</button>
+            <button onclick="showAll()" id="showAll" class="btn btn-primary hidden">See more</button>
         </section>
     </main>
     <footer>
