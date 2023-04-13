@@ -2,7 +2,7 @@ const loadAllData = async () => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(url);
   const data = await res.json();
-  displayAllData(data.data.tools.slice(0, 3));
+  displayAllData(data.data.tools.slice(0, 6));
 }
 
 
@@ -79,19 +79,45 @@ const loadDetails = async id => {
 }
 
 const displayDetails = detail => {
-  console.log(detail.input_output_examples)
+  console.log(detail.integrations)
   const detailsData = document.getElementById('modal-container');
 
   const modalLeft = document.getElementById('modal-left');
   modalLeft.innerHTML = `
-  <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
+  <h3 class="text-lg font-bold">${detail.description}</h3>
+  <div class="grid grid-cols-1 lg:grid-cols-3 text-center mt-4 gap-2">
+    <p class="text-green-600 font-bold bg-zinc-200 rounded-xl p-2">${detail.pricing[0].price}
+    ${detail.pricing[0].plan}
+    </p>
+    <p class="text-orange-600 font-bold bg-zinc-200 rounded-xl p-2">${detail.pricing[1].price}
+    ${detail.pricing[1].plan}
+    </p><p class="text-red-500 font-bold bg-zinc-200 rounded-xl p-2">${detail.pricing[2].price}
+    ${detail.pricing[2].plan}
+    </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-2">
+    <div>
+        <h3 class="text-lg font-bold">Features</h3>
+        <p>&#x2022; ${detail.features[1].feature_name ? detail.features[1].feature_name : 'Free of cost'} </p>
+        <p>&#x2022; ${detail.features[2].feature_name ? detail.features[2].feature_name : 'Free of cost'}</p>
+        <p>&#x2022; ${detail.features[3].feature_name ? detail.features[3].feature_name : 'Free of cost'}</p>
+    </div>
+    <div>
+        <h3 class="text-lg font-bold">Integrations</h3>
+        <p>&#x2022; ${detail.integrations[0] ? detail.integrations[0] : 'No Data Found'}</p>
+        <p>&#x2022; ${detail.integrations[1] ? detail.integrations[1] : 'No Data Found'}</p>
+        <p>&#x2022; ${detail.integrations[2] ? detail.integrations[2] : 'No Data Found'}</p>
+    </div>
+</div>
   `;
   const modalRight = document.getElementById('modal-right');
   modalRight.innerHTML = `
-  <img src="${detail.image_link[0]}" alt="">
+  
+  <img class="rounded-xl" src="${detail.image_link[0]}" alt="">
+  <p class=" -mt-12 bg-orange-400 text-rose-600 w-44 px-6 border-2 rounded-xl border-sky-800 ">${detail.accuracy.score * 100 + '% Accuracy'}</p>
   <h3 class="text-lg text-center font-bold mt-6">${detail.input_output_examples[0].input}</h3>
-  <p class="py-4 text-center">${detail.input_output_examples[0].output}</p>
-  `;
+  <p class="py-4 text-center">${detail.input_output_examples[0].output ? detail.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
+`;
 
 
 
