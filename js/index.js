@@ -19,7 +19,7 @@ const displayAllData = (features) => {
   }
   // console.log(features);
   features.forEach(feature => {
-    console.log(feature)
+    // console.log(feature)
     const div = document.createElement('div');
     div.innerHTML = `
         <div class="card w-full bg-base-100 shadow-xl">
@@ -38,7 +38,7 @@ const displayAllData = (features) => {
         <p> ${feature.published_in}</p>
       </div>
       <div class="card-actions basis-3/12">
-      <button class="btn btn-primary">Details</button>
+      <label onclick="loadDetails('${feature.id}')" for="my-modal" class="btn btn-primary">Details</label>
     </div>
     </div>
   </div>
@@ -60,7 +60,7 @@ const toggleSpinner = isLoading => {
 }
 
 
-// loadAllData();
+
 
 
 const showAll = async () => {
@@ -70,3 +70,32 @@ const showAll = async () => {
   const data = await res.json();
   displayAllData(data.data.tools);
 }
+
+const loadDetails = async id => {
+  const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  // displayDetails(data.data);
+  console.log(data.data)
+}
+
+// const displayDetails = detail => {
+//   console.log(detail)
+//   const detailsData = document.getElementById('details-data');
+
+//   detailsData.innerHTML = `
+//   <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+//   <div class="modal">
+//       <div class="modal-box relative">
+//           <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+//           <div id="details-data">
+
+//           </div>
+//       </div>
+//   </div>
+//   `;
+// }
+
+
+loadAllData();
+
