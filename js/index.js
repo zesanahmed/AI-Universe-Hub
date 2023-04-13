@@ -19,7 +19,7 @@ const displayAllData = (features) => {
   }
   // console.log(features);
   features.forEach(feature => {
-    // console.log(feature)
+    // console.log(feature.image)
     const div = document.createElement('div');
     div.innerHTML = `
         <div class="card w-full bg-base-100 shadow-xl">
@@ -75,26 +75,27 @@ const loadDetails = async id => {
   const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
   const res = await fetch(url);
   const data = await res.json();
-  // displayDetails(data.data);
-  console.log(data.data)
+  displayDetails(data.data);
 }
 
-// const displayDetails = detail => {
-//   console.log(detail)
-//   const detailsData = document.getElementById('details-data');
+const displayDetails = detail => {
+  console.log(detail.input_output_examples)
+  const detailsData = document.getElementById('modal-container');
 
-//   detailsData.innerHTML = `
-//   <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-//   <div class="modal">
-//       <div class="modal-box relative">
-//           <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-//           <div id="details-data">
+  const modalLeft = document.getElementById('modal-left');
+  modalLeft.innerHTML = `
+  <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
+  `;
+  const modalRight = document.getElementById('modal-right');
+  modalRight.innerHTML = `
+  <img src="${detail.image_link[0]}" alt="">
+  <h3 class="text-lg text-center font-bold mt-6">${detail.input_output_examples[0].input}</h3>
+  <p class="py-4 text-center">${detail.input_output_examples[0].output}</p>
+  `;
 
-//           </div>
-//       </div>
-//   </div>
-//   `;
-// }
+
+
+}
 
 
 loadAllData();
